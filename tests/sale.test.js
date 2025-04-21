@@ -12,8 +12,8 @@ describe('Venda de veículos', () => {
             ano: 2015,
             cor: 'Branco',
             preco: 15000,
-            renavam: '12121212121',
-            placa: 'ABA1212'
+            renavam: generateRenavam(),
+            placa: generatePlaca()
         };
 
         const vehicle = await VehicleController.addVehicle(vehicleData);
