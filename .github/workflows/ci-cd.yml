@@ -47,8 +47,8 @@ jobs:
         run: |
           for file in tests/*.test.js; do
             echo "===> Rodando: $file"
-            docker-compose exec app node db/cleanDB.js
-            docker-compose exec app npx jest "$file"
+            docker-compose run --rm app node db/cleanDB.js
+            docker-compose run --rm app npx jest "$file"
           done
 
       - name: Stop and remove containers
