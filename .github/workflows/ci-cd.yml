@@ -51,27 +51,7 @@ jobs:
       - name: Perform user testing on the container
         run: |
           # Executa os testes dentro do contêiner da aplicação
-          docker-compose run tests npx jest tests/user.test.js
-
-      - name: Clean database before sales test
-        run: | 
-          # Limpa registros do banco de dados
-          docker-compose run --rm app node src/db/cleanDB.js
-
-      - name: Perform sales testing in the container
-        run: |
-          # Executa os testes dentro do contêiner da aplicação
-              docker-compose run tests npx jest tests/sale.test.js
-
-      - name: Clean database before vehicle test
-        run: | 
-          # Limpa registros do banco de dados
-          docker-compose run --rm app node src/db/cleanDB.js    
-
-      - name: Perform vehicle testing in the container
-        run: |
-          # Executa os testes dentro do contêiner da aplicação
-              docker-compose run tests npx jest tests/vehicleInsertUpdate.test.js
+          docker-compose run tests npx jest --watch
 
       - name: Stop and remove containers
         run: |
