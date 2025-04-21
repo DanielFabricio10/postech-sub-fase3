@@ -48,10 +48,11 @@ jobs:
           # Limpa registros do banco de dados
           docker-compose run --rm app node src/db/cleanDB.js
 
-      - name: Perform user testing on the container
+      - name: Run all tests
         run: |
-          # Executa os testes dentro do contêiner da aplicação
-          docker-compose run tests npx jest --watch
+          for file in tests/*.test.js; do
+            docker-compose run --rm tests npx jest "$file"
+          done
 
       - name: Stop and remove containers
         run: |
