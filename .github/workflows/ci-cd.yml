@@ -43,15 +43,30 @@ jobs:
           # Instala dependências dentro do contêiner
            docker-compose run --rm app npm ci
   
+      - name: Clean database before user test
+        run: | 
+          # Limpa registros do banco de dados
+          docker-compose run --rm app node db/cleanDB.js
+
       - name: Perform user testing on the container
         run: |
           # Executa os testes dentro do contêiner da aplicação
           docker-compose run tests npx jest tests/user.test.js
 
+      - name: Clean database before sales test
+        run: | 
+          # Limpa registros do banco de dados
+          docker-compose run --rm app node db/cleanDB.js
+
       - name: Perform sales testing in the container
         run: |
           # Executa os testes dentro do contêiner da aplicação
               docker-compose run tests npx jest tests/sale.test.js
+
+      - name: Clean database before vehicle test
+        run: | 
+          # Limpa registros do banco de dados
+          docker-compose run --rm app node db/cleanDB.js     
 
       - name: Perform vehicle testing in the container
         run: |
