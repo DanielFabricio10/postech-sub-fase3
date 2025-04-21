@@ -1,6 +1,14 @@
 const SaleController    = require('../src/controllers/SaleController');
 const VehicleController = require('../src/controllers/VehicleController');
 
+const generateRenavam = () => Array.from({ length: 11 }, () => Math.floor(Math.random() * 10)).join('');
+const generatePlaca   = () => {
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const randomLetters = Array.from({ length: 3 }, () => letters[Math.floor(Math.random() * letters.length)]).join('');
+    const randomNumbers = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    return randomLetters + randomNumbers;
+};
+
 describe('Venda de veículos', () => {
     let vehicleData;
     let renavam;
@@ -137,14 +145,6 @@ describe('Venda de veículos', () => {
     });
 
     describe('Testes de performance', () => {
-
-        const generateRenavam = () => Array.from({ length: 11 }, () => Math.floor(Math.random() * 10)).join('');
-        const generatePlaca   = () => {
-            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const randomLetters = Array.from({ length: 3 }, () => letters[Math.floor(Math.random() * letters.length)]).join('');
-            const randomNumbers = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-            return randomLetters + randomNumbers;
-        };
 
         it('deve registrar e aprovar 500 vendas em um teste de performance', async () => {
             const salesData = [];
