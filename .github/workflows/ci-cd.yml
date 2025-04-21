@@ -47,7 +47,7 @@ jobs:
         run: |
           for file in tests/*.test.js; do
             echo "===> Rodando: $file"
-            docker-compose run --rm app node db/cleanDB.js
+            docker-compose run --rm app node src/db/cleanDB.js
             docker-compose run --rm app npx jest "$file"
           done
 
