@@ -43,10 +43,20 @@ jobs:
           # Instala dependências dentro do contêiner
            docker-compose run --rm app npm ci
   
-      - name: Run tests inside the container
+      - name: Perform user testing on the container
         run: |
           # Executa os testes dentro do contêiner da aplicação
-          docker-compose run --rm app npm test
+          docker-compose run tests npx jest tests/user.test.js
+
+      - name: Perform vehicle testing in the container
+        run: |
+          # Executa os testes dentro do contêiner da aplicação
+              docker-compose run tests npx jest tests/vehicleInsertUpdate.test.js
+
+      - name: Perform sales testing in the container
+        run: |
+          # Executa os testes dentro do contêiner da aplicação
+              docker-compose run tests npx jest tests/sale.test.js
 
       - name: Stop and remove containers
         run: |
