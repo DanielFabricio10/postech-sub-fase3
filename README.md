@@ -12,7 +12,7 @@ Antes de rodar o projeto, certifique-se de ter as seguintes ferramentas instalad
 
 Após verificado/instaldo todas as tecnologias listadas acima, podemos seguir para o clone do projeto:
 ```bash
-git clone https://github.com/DanielFabricio10/vehicle-platform.git
+git clone https://github.com/DanielFabricio10/postech-sub-fase3.git
 ```
 
 Agora no terminal de comando, acesse a pasta do projeto e execute:
