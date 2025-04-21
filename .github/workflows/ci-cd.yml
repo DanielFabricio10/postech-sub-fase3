@@ -46,7 +46,9 @@ jobs:
       - name: Run all tests
         run: |
           for file in tests/*.test.js; do
-            docker-compose run --rm tests npx jest "$file"
+            echo "===> Rodando: $file"
+            docker-compose exec app node db/cleanDB.js
+            docker-compose exec app npx jest "$file"
           done
 
       - name: Stop and remove containers
