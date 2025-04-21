@@ -1,4 +1,4 @@
-const MongoDBClient = require('MongoClient');
+const MongoDBClient = require('./MongoClient');
 const mongoClient = new MongoDBClient();
 
 async function cleanDb() {
