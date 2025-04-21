@@ -1,5 +1,6 @@
 const express = require('express');
 const vehicleController = require('../controllers/VehicleController');
+const authMiddleware = require('../middlewares/AuthMiddleware');
 
 const router = express.Router();
 
@@ -15,13 +16,14 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
     const { status, order } = req.query;
-
+    
     try {
         const vehicles = await vehicleController.getVehicles(status, order);
         res.status(200).json(vehicles);
     } catch (error) {
+        console.error('Erro ao buscar veículos:', error.message);
         res.status(500).json({ error: 'Erro ao buscar veículos' });
     }
 });

@@ -35,14 +35,14 @@ async function updateSaleStatus(saleId, status) {
         }
 
         const currentSale = sale[0];
-        const validStatuses = ['concluída', 'cancelada'];
+        const validStatuses = ['aprovada', 'cancelada'];
 
         if(!validStatuses.includes(status)) {
-            throw new Error('Status inválido. Use "concluída" ou "cancelada".');
+            throw new Error('Status inválido. Use "aprovada" ou "cancelada".');
         }
 
-        if(currentSale.status === 'concluída' || currentSale.status === 'cancelada') {
-            throw new Error('Venda já está concluída ou cancelada.');
+        if(currentSale.status === 'aprovada' || currentSale.status === 'cancelada') {
+            throw new Error('Venda já está aprovada ou cancelada.');
         }
 
         await mongoClient.updateOne('sales', { idPagamento: saleId }, { $set: { status } });

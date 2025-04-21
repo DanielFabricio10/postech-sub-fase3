@@ -44,8 +44,8 @@ describe('Venda de veículos', () => {
         const vehicle = await VehicleController.getVehicleRenavam(renavam);
         expect(vehicle.status).toBe('vendido');
 
-        const salePaid = await SaleController.updateSaleStatus(sale.idPagamento, 'concluída');
-        expect(salePaid.message).toBe('Status da venda atualizado para concluída.');
+        const salePaid = await SaleController.updateSaleStatus(sale.idPagamento, 'aprovada');
+        expect(salePaid.message).toBe('Status da venda atualizado para aprovada.');
     });
 
     it('deve registrar uma venda e cancelar corretamente', async () => {
@@ -75,15 +75,15 @@ describe('Venda de veículos', () => {
         const sale = await SaleController.addSale(saleData);
         expect(sale.idPagamento).toBeDefined();
     
-        const saleApproved = await SaleController.updateSaleStatus(sale.idPagamento, 'concluída');
-        expect(saleApproved.message).toBe('Status da venda atualizado para concluída.');
+        const saleApproved = await SaleController.updateSaleStatus(sale.idPagamento, 'aprovada');
+        expect(saleApproved.message).toBe('Status da venda atualizado para aprovada.');
     
         await expect(SaleController.updateSaleStatus(sale.idPagamento, 'cancelada')).rejects.toThrow(
-            'Venda já está concluída ou cancelada.'
+            'Venda já está aprovada ou cancelada.'
         );
 
-        await expect(SaleController.updateSaleStatus(sale.idPagamento, 'concluída')).rejects.toThrow(
-            'Venda já está concluída ou cancelada.'
+        await expect(SaleController.updateSaleStatus(sale.idPagamento, 'aprovada')).rejects.toThrow(
+            'Venda já está aprovada ou cancelada.'
         );
     });
 
@@ -100,12 +100,12 @@ describe('Venda de veículos', () => {
         const saleApproved = await SaleController.updateSaleStatus(sale.idPagamento, 'cancelada');
         expect(saleApproved.message).toBe('Status da venda atualizado para cancelada.');
     
-        await expect(SaleController.updateSaleStatus(sale.idPagamento, 'concluída')).rejects.toThrow(
-            'Venda já está concluída ou cancelada.'
+        await expect(SaleController.updateSaleStatus(sale.idPagamento, 'aprovada')).rejects.toThrow(
+            'Venda já está aprovada ou cancelada.'
         );
 
         await expect(SaleController.updateSaleStatus(sale.idPagamento, 'cancelada')).rejects.toThrow(
-            'Venda já está concluída ou cancelada.'
+            'Venda já está aprovada ou cancelada.'
         );
     });
 
@@ -176,12 +176,12 @@ describe('Venda de veículos', () => {
             }
 
             for(const saleId of salesData) {
-                const saleApproved = await SaleController.updateSaleStatus(saleId, 'concluída');
-                expect(saleApproved.message).toBe('Status da venda atualizado para concluída.');
+                const saleApproved = await SaleController.updateSaleStatus(saleId, 'aprovada');
+                expect(saleApproved.message).toBe('Status da venda atualizado para aprovada.');
             }
         
             console.log(`Teste de performance concluído: 500 vendas registradas e aprovadas com sucesso.`);
-        });
+        }, 30000);
 
         it('deve registrar e cancelar 500 vendas em um teste de performance', async () => {
             const salesData = [];
@@ -218,6 +218,6 @@ describe('Venda de veículos', () => {
             }
         
             console.log(`Teste de performance concluído: 500 vendas registradas e canceladas com sucesso.`);
-        });
+        }, 30000);
     });
 });

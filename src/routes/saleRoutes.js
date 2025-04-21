@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const saleController = require('../controllers/SaleController');
+const authMiddleware = require('../middlewares/AuthMiddleware');
 
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
     const saleData = req.body;
+
     try {
         const sales = await saleController.addSale(saleData);
         res.status(200).json(sales);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao listar vendas' });
+        res.status(500).json({ error: 'Erro ao gerar nova venda' });
     }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
     try {
         const sales = await saleController.getAllSales();
         res.status(200).json(sales);
@@ -21,7 +23,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.patch('/update-status/:saleId/:status', async (req, res) => {
+router.patch('/update-status/:saleId/:status', authMiddleware, async (req, res) => {
     const { saleId, status } = req.params;
 
     try {
